@@ -31,6 +31,7 @@ type Props = {
   handleChange?: (arg0: File | Array<File> | File) => void;
   onDraggingStateChange?: (dragging: boolean) => void;
   dropMessageStyle?: React.CSSProperties | undefined;
+  refObj?: React.RefObject<HTMLInputElement>;
 };
 /**
  *
@@ -100,7 +101,8 @@ const drawDescription = (
     label,
     multiple,
     required,
-    onDraggingStateChange
+    onDraggingStateChange,
+    refObj
   }
  * @returns JSX Element
  */
@@ -124,10 +126,11 @@ const FileUploader: React.FC<Props> = (props: Props): JSX.Element => {
     multiple,
     required,
     onDraggingStateChange,
-    dropMessageStyle
+    dropMessageStyle,
+    refObj
   } = props;
   const labelRef = useRef<HTMLLabelElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = refObj ? refObj : useRef<HTMLInputElement>(null);
   const [uploaded, setUploaded] = useState(false);
   const [currFiles, setFile] = useState<Array<File> | File | null>(null);
   const [error, setError] = useState(false);
