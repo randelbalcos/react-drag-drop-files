@@ -1,1 +1,4 @@
-export { default as FileUploader } from './FileUploader';
+export {
+  default as FileUploader,
+  default as FileUploaderRef
+} from './FileUploader';

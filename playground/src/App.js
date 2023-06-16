@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import './App.css';
 const fileTypes = ['JPG', 'PNG', 'GIF', 'JPEG'];
 
 function App() {
   const [fileOrFiles, setFile] = useState(null);
+  const inputRef = useRef(null);
+
+  const handleUploadClick = () => {
+    if (inputRef.current) {
+      inputRef.current.open();
+    }
+  };
+
   const handleChange = (fileOrFiles) => {
     setFile(fileOrFiles);
     console.log('changes', fileOrFiles);
@@ -32,11 +40,14 @@ function App() {
         onDrop={onDrop}
         onSelect={onSelect}
         label="Upload file here"
-        dropMessageStyle={{backgroundColor: 'red'}}
+        dropMessageStyle={{ backgroundColor: 'red' }}
         multiple
+        ref={inputRef}
       />
       <br />
       <button onClick={() => setFile(null)}>Clear File</button>
+      <br />
+      <button onClick={handleUploadClick}>Open upload window</button>
     </div>
   );
 }
